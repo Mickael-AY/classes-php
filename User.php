@@ -38,7 +38,7 @@ class User
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
         // Insertion dans la base de données
-        $sql = "INSERT INTO utilisateurs (login, password, email, firstname, lastname)
+        $sql = "INSERT INTO utilisateur (login, password, email, firstname, lastname)
                 VALUE ('$login', '$passwordHash','$email','$firstname', '$lastname')";
 
         if (mysqli_query($this->connexion, $sql)) {
@@ -56,7 +56,7 @@ class User
     {
         // Échappe les caractères spéciaux pour éviter les injections SQL
         $login = esc($login);
-        $sql = "SELECT * FROM utilisateurs WHERE login = '$login'";
+        $sql = "SELECT * FROM utilisateur WHERE login = '$login'";
         $result = mysqli_query($this->connexion, $sql); //Appelle la base de donnée
 
         if ($result && mysqli_num_rows($result) > 0) {
@@ -91,7 +91,7 @@ class User
     public function delete()
     {
         if ($this->connected && $this->id) {
-            $sql = "DELETE FROM utilisateurs WHERE id = $this->id";
+            $sql = "DELETE FROM utilisateur WHERE id = $this->id";
             if (mysqli_query($this->connexion, $sql)) {
                 $this->disconnect();
                 return true;
@@ -112,7 +112,7 @@ class User
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
         // Met à jour dans la base de données
-        $sql = "UPDATE utilisateurs
+        $sql = "UPDATE utilisateur
         SET login = '$login', password ='$passwordHash', email = $email', firstname =$firstname', lastname = '$lastname'
         WHERE id = $this->id";
 
@@ -170,7 +170,7 @@ class User
     public function read($id)
     {
         $id = (int)$id;
-        $sql = "SELECT * FROM utilisateurs WHERE id = $id";
+        $sql = "SELECT * FROM utilisateur WHERE id = $id";
         $result = mysqli_query($this->connexion, $sql);
 
         // Remplit les attributs si trouvé
