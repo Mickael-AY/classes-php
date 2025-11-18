@@ -20,7 +20,7 @@ class Userpdo
     // Inscription
     public function register($login, $password, $email, $firstname, $lastname)
     {
-        $sql = "INSERT INTO utilisateurs (login, password, email, firstname, lastname)
+        $sql = "INSERT INTO utilisateur (login, password, email, firstname, lastname)
         VALUES (:login, :password, :email, :firstname, :lastname)";
         $stmt = $this->pdo->prepare($sql);
 
@@ -42,7 +42,7 @@ class Userpdo
     // Connexion
     public function connect($login, $password)
     {
-        $sql = "SELECT * FROM utilisateurs WHERE login = :login";
+        $sql = "SELECT * FROM utilisateur WHERE login = :login";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':login', $login);
         $stmt->execute();
@@ -77,7 +77,7 @@ class Userpdo
     public function delete()
     {
         if ($this->connected && $this->id) {
-            $sql = "DELETE FROM utilisateurs WHERE id = :id";
+            $sql = "DELETE FROM utilisateur WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":id", $this->id);
 
@@ -95,7 +95,7 @@ class Userpdo
     {
         if (!$this->connected || !$this->id) return false;
 
-        $sql = "UPDATE utilisateurs
+        $sql = "UPDATE utilisateur
                 SET login = :login, password = :password, email = :email, firstname = :firstname, lastname = :lastname
                 WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
@@ -164,7 +164,7 @@ class Userpdo
     // Lire utilisateur par son ID
     public function read($id)
     {
-        $sql = "SELECT * FROM utilisateurs WHERE id = :id";
+        $sql = "SELECT * FROM utilisateur WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
